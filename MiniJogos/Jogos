@@ -1,0 +1,196 @@
+import random
+import time
+
+fundo = ('\033[m', #0, cor branca
+     '\033[31m', #1, cor vermelha
+     '\033[32m', #2, cor verde
+     '\033[33m', #3, cor amarela
+     '\033[34m', #4, cor azul
+     '\033[35m', #5, cor rosa
+     '\033[36m', #6, cor ciano
+     '\033[37m', #7, cor cinza
+    )
+
+
+#linha com -
+def linha(tam=40):
+    return '-' * tam
+
+
+#linha com =
+def linha2(tam=40):
+    return '=' *tam
+
+
+#menu inicial com linha =
+def menu1(txt, cor=5):
+    print(fundo[cor], end='')
+    print(linha2())
+    print(txt.center(40))
+    print(linha2())
+    print(fundo[0], end='')
+
+
+#menu dos jogos com linha -
+def menu2(txt, cor=2):
+    print(fundo[cor], end='')
+    print(linha())
+    print(txt.center(40))
+    print(linha())
+    print(fundo[0], end='')
+
+
+
+#verificar se a resposta é INT ou não
+def leiaint(msg):
+    while True:
+        try:
+            n = int(input(msg))
+        except (ValueError, TypeError):
+            print('\033[31mERRO, por favor, Tente Novamente\033[m')
+            continue
+        except Exception as error:
+            print(f'\033[31mERRO: {error.__cause__}\033[m')
+            continue
+        except KeyboardInterrupt:
+            print('\033[31mNenhum numero foi digitado\033[m')
+            break
+        else:
+            return n
+
+
+#verificar se a resposta é STR ou não
+def leiastr(msg):
+    while True:
+        try:
+            n = str(input(msg)).title().strip()
+        except (ValueError, TypeError):
+            print('\033[31mERRO, por favor, Tente Novamente\033[m')
+            continue
+        except KeyboardInterrupt:
+            print('\033[31mNenhum numero foi digitado\033[m')
+            continue
+        except Exception as error:
+            print(f'\033[31mERRO: {error.__cause__}\033[m')
+            continue
+        else:
+            return n
+
+
+#Programa Principal
+menu1('Mini Jogos')
+print('''    [1] para jogar Par ou Impar
+    [2] para jogar Jokênpo
+    [3] para jogar Adivinhação  
+    [4] para Sair''')
+while True:
+    opc = leiaint('Escolha um Jogo: ')
+    if opc < 1 or opc > 4:
+        print('\033[31mERRO, Numero Inválido\033[m')
+    else:
+        break
+print()
+
+
+#gerar jogo Par ou Impar
+if opc == 1:
+    menu2('Jogo do Par ou Impar')
+    print('\033[31mLeia as Instruções Abaixo:\033[m')
+    print('\033[33mO computador irá pensar em um numero entre 0 e 20.\nEscolha um numero no mesmo intervalo para somar com a jogada do computador.\nE então tente adivinhar se a soma será Par ou Impar\033[m')
+    soma = 0
+    while True:
+        pc = random.randint(0, 20)
+        if pc % 2 == 0:
+            P = 'PAR'
+        else:
+            I = 'IMPAR'
+        while True:
+            jog = leiaint('Sua Jogada: ')
+            if jog < 0 or jog > 20:
+                print('\033[31mNúmero Inválido, Tente Novamente\033[m')
+            else:
+                break
+        resp = str(input('Par ou Impar ? ')).title().strip()
+        if resp in 'Pp' or resp in 'par' or resp in 'PAR' or resp in 'Par':
+            resp = 'PAR'
+        elif resp in 'Ii' or resp in 'impar' or resp in 'IMPAR' or resp in 'Impar':
+            resp = 'IMPAR'
+        tot = pc + jog
+        if tot % 2 == 0:
+            res = 'PAR'
+        else:
+            res = 'IMPAR'
+        print('hmmm', end='')
+        for p in range(3):
+            print('.', end='')
+            time.sleep(0.5)
+        print()
+        print(f'O computador pensou em {pc} e você {jog}, total de {tot} deu {res}')
+        if res == resp:
+            soma += 1
+            print('\033[34mVocê Ganhou! +1 ponto\033[m')
+        else:
+            print(f'\033[31mVocê Perdeu. Total de {soma} pontos\033[m')
+            break
+
+
+#gerar jogo Jonkenpô
+if opc == 2:
+    menu2('Jogo do Jokenpô')
+    print('\033[33mO computador irá jogar Pedra, Papel ou Tesoura.\nTente Vence-lo \033[m')
+    soma = 0
+    while True:
+        pc = random.choice(['Pedra', 'Papel', 'Tesoura'])
+        jog = leiastr('Sua Jogada: ').title().strip()
+        print('JO')
+        time.sleep(0.5)
+        print('KEN')
+        time.sleep(0.5)
+        print('PÔ!!!')
+        time.sleep(0.5)
+        print(f'O computador jogou {pc} e você {jog}')
+        if pc == 'Pedra' and jog == 'Papel' or pc == 'Papel' and jog == 'Tesoura' or pc == 'Tesoura' and jog == 'Pedra':
+            soma += 1
+            print('\033[34mVocê Ganhou! +1 ponto\033[m')
+        elif pc == jog:
+            print('\033[33mEMPATE!\033[m')
+        elif jog == 'Pedra' and pc == 'Papel' or jog == 'Papel' and pc == 'Tesoura' or jog == 'Tesoura' and pc == 'Pedra':
+            print(f'\033[31mGame Over Total de {soma} pontos\033[m')
+            break
+
+#gerar jogo da Adivinhação
+if opc == 3:
+    menu2('Jogo da Adivinhação')
+    print('\033[31mLeia as Instruções Abaixo:\033[m')
+    print('\033[33mO programa irá pensar em um numero entre 0 e 20. Tente adivinhar\033[m')
+    pc = random.randint(0, 20)
+    soma = 0
+    while True:
+        while True:
+            jog = leiaint('Em qual número você pensou ? ')
+            if jog < 0 or jog > 20:
+                print('\033[31mNúmero Inválido, Tente Novamente\033[m')
+            else:
+                break
+        soma += 1
+        print('hmm', end='')
+        for p in range(3):
+            print('.', end='')
+            time.sleep(0.5)
+        print()
+        if pc > jog:
+            print('\033[31mErrou, o numero é MAIOR\033[m')
+        elif pc < jog:
+            print('\033[31mErrou, o numero é MENOR\033[m')
+        elif pc == jog:
+            print(f'\033[34mVocê Acertou! {soma} tentativas necessárias\033[m')
+            break
+
+#encerrar o programa
+if opc == 4:
+    print('\033[31mSainco do Programa\033[m', end='')
+    for p in range(3):
+        print('\033[31m.\033[m', end='')
+        time.sleep(0.5)
+    print()
+    print('\033[31mAté Logo!\033[m')
