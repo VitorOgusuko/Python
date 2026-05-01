@@ -1,32 +1,20 @@
-cores = ('\033[m', #0, cor branca
-     '\033[31m', #1, cor vermelha
-     '\033[32m', #2, cor verde
-     '\033[33m', #3, cor amarela
-     '\033[34m', #4, cor azul
-     '\033[35m', #5, cor rosa
-     '\033[36m', #6, cor ciano
-     '\033[37m', #7, cor cinza
-    )
+from rich import print
+from rich.panel import Panel
 
-def erro(c=1):
-    return cores[c]
+def erro(msg):
+    error = f'[red]{msg}[/]'
+    return error
 
-def pararerro(c=0):
-    return cores[0]
 
 def leiaint(msg):
     while True:
         try:
             valor = int(input(msg))
         except (ValueError, TypeError):
-            print(erro(), end='')
-            print('ERRO, tente novamente!')
-            print(pararerro(), end='')
+            print('[red]ERRO, tente novamente![/]')
             continue
         except KeyboardInterrupt:
-            print(erro(), end='')
-            print('Operação Interrompida')
-            print(pararerro(), end='')
+            print('[red]Operação Interrompida[/]')
             break
         else:
             return valor
@@ -36,14 +24,10 @@ def leiastr(msg):
         try:
             valor = str(input(msg))
         except (ValueError, TypeError):
-            print(erro(), end='')
-            print('ERRO, tente novamente!')
-            print(pararerro(), end='')
+            print('[red]ERRO, tente novamente![/]')
             continue
         except KeyboardInterrupt:
-            print(erro(), end='')
-            print('Operação Interrompida')
-            print(pararerro(), end='')
+            print('[red]Operação Interrompida[/]')
             continue
         else:
             return valor
@@ -52,29 +36,19 @@ def leiastr(msg):
 def linha(tam=40):
     return '-' * tam
 
-def linhad(tam=40):
-    return '=' * tam
-
-def linhat(msg):
+def linhad(msg):
     print('-'*len(msg))
     print(msg.center(len(msg)))
 
-
-def cabeçalho(txt, c=3):
-    print(cores[c], end='')
-    print(linha())
-    print(txt.center(40))
-    print(linha())
-    print(cores[0], end='')
-
 def menu(txt, c=4):
-    cabeçalho('LOJA DE ROUPA')
-    print(cores[c], end='')
-    c = 1
-    for item in txt:
-        print(f'[{c}] para {item}')
-        c += 1
-    print(linha())
-    print(cores[0], end='')
+    conteudo = '[blue][1] - Calça\t\t[2] - Camisa\n'
+    conteudo += '[3] - Blusa\t\t[4] - Tênis\n'
+    conteudo += '[5] - Acessórios\t[6] - Ver Carrinho\n'
+    conteudo += '[7] - Sair[/]'
+
+    print('\n')
+    painel = Panel(conteudo, title='Loja de Roupa', width=50, style='yellow')
+    print(painel)
+
     opc = leiaint('O que deseja: ')
     return opc

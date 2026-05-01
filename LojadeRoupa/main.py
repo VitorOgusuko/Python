@@ -6,19 +6,25 @@ arquivo = 'Carrinho'
 arquivocriar(arquivo)
 
 while True:
-    resp = menu(['Calça', 'Camisa', 'Blusa', 'Tênis', 'Acessórios', 'Ver Carrinho', 'Sair'])
+    resp = menu()
+    os.system('cls')
     if resp == 1:
         calca()
+        os.system('cls')
     elif resp == 2:
         camisa()
+        os.system('cls')
     elif resp == 3:
         blusa()
+        os.system('cls')
     elif resp == 4:
         tenis()
+        os.system('cls')
     elif resp == 5:
         acessorio()
+        os.system('cls')
     elif resp == 6:
-        linhat('Itens do seu carrinho:')
+        linhad('Itens do seu carrinho:')
         lerarquivo(arquivo)
     elif resp == 7:
         break

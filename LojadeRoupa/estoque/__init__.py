@@ -1,15 +1,10 @@
 from time import sleep
 from LojadeRoupa.interface import *
 from LojadeRoupa.guardar import *
+from rich import print
+import os
 
 arquivo = 'Carrinho'
-
-def rosa(c=5):
-    return cores[c]
-
-def tirarrosa(c=0):
-    return cores[c]
-
 
 
 #gerar estoque de calças
@@ -19,12 +14,12 @@ def calca():
     ta = {'36':'(PP) Cintura fina', '39':'(P) Pequeno', '42':'(M) Médio', '44':'(G) Grande', '48':'(GG/XG) Extra Grande','52':'(EXG): Especial'}
     lista = {'1':'Calça Jeans', '2':'Calça Moletom', '3':'Calça Cargo', '4':'Calça Casual'}
 
-    print('As opções de Calças são: ')
+    conteudo = '[yellow]As Opções de Calças são:\n'
+    conteudo += '[1] para Calça Jeans\t[2] para Calça Moletom\n'
+    conteudo += '[3] para Calça Cargo\t[4] para Calça Casual[/]'
 
-    print(rosa(), end='')
-    for k, v in lista.items():
-        print(f'[{k}] para {v}')
-    print(tirarrosa(), end='')
+    painel = Panel(conteudo, title='Calças', width=60, style='green')
+    print(painel)
 
     while True:
         n = leiastr('Qual a sua opção ? ')
@@ -34,15 +29,18 @@ def calca():
             if certo in 'Sn':
                 break
             else:
-                print(erro(), end='')
-                print('Cancelado')
-                print(pararerro(), end='')
+                print('[red]Cancelado[/]')
+    os.system('cls')
 
-    linhat(f'Tamanhos de {lista[n]} Disponíveis:')
-    print(rosa(), end='')
-    for k, v in ta.items():
-        print(f'{k} {v}')
-    print(tirarrosa(), end='')
+    linha()
+    conteudo = f'[yellow]Tamanhos de \"{lista[n]}\" Disponíveis:\n'
+    conteudo +='36 (PP) Cintura fina\t  39 (P) Pequeno\n'
+    conteudo += '42 (M) Médio\t\t  44 (G) Grande\n'
+    conteudo += '48 (GG/XG) Extra Grande\t  52 (EXG): Especial[/]'
+
+    painel = Panel(conteudo, title='Tamanhos de Calça', width=60, style='green')
+    print(painel)
+
 
     while True:
         print('-' * 15)
@@ -53,19 +51,20 @@ def calca():
             if certo in 'Sn':
                 break
             else:
-                print(erro(), end='')
-                print('Cancelado')
-                print(pararerro(), end='')
+                print('[red]Cancelado[/]')
+    os.system('cls')
 
 
-    linhat('Cores Disponíveis:')
-    print(rosa(), end='')
-    for c in range(0, len(cor)):
-        if c % 2 == 0:
-            print(f'{cor[c]:<20}', end='')
-        else:
-            print(f'{cor[c]:>3}')
-    print(tirarrosa(), end='')
+    linha()
+    conteudo = f'[yellow]Cores de \"{lista[n]}\" Disponíveis\n'
+    conteudo += 'Branco\t\tPreto\n'
+    conteudo += 'Vermelho\tVerde\n'
+    conteudo += 'Amarelo\t\tAzul\n'
+    conteudo += 'Rosa\t\tCinza\n'
+    conteudo += 'Roxo\t\tLaranja[/]'
+
+    painel = Panel(conteudo, title='Cores de Calça', width=40, style='green')
+    print(painel)
 
     while True:
         print('-' * 12)
@@ -73,9 +72,8 @@ def calca():
         if e in cor:
             break
         else:
-            print(erro(), end='')
-            print(f'Cor {e} fora de estoque')
-            print(pararerro(), end='')
+            print(f'[red]Cor {e} fora de estoque[/]')
+            
 
     linhat(f'Produto: {lista[n]}')
     print(f'Tamanho: {t}')
@@ -84,7 +82,8 @@ def calca():
     print(linhad())
 
     cadastrar(arquivo, lista[n], t, e)
-
+     os.system('cls')
+    
 
 #gerar estoque de camisas
 def camisa():
@@ -93,12 +92,13 @@ def camisa():
     ta = {'PP':'Extra Pequeno', 'P':'Pequeno', 'M':'Médio', 'G':'Grande', 'GG':' Extra Grande', 'EG':'Extra Extra Grande'}
     lista = {'1':'Camisa Regata', '2':'Camisa Manga Longa', '3':'Camisa Manga Curta', '4':'Camisa Justa', '5':'Camisa Formal'}
 
-    print('Os tipos de camisas disponíveis são: ')
+    conteudo = '[yellow]Os Tipos de Camisa disponíveis são:\n'
+    conteudo += '[1] - Camisa Regata\t\t[2] - Camisa Manga Longa\n'
+    conteudo += '[3] - Camisa Manga Curta\t[4] - Camisa Justa\n'
+    conteudo += '[5] - Camisa Formal[/]'
 
-    print(rosa(), end='')
-    for k, v in lista.items():
-        print(f'[{k}] para {v}')
-    print(tirarrosa(), end='')
+    painel = Panel(conteudo, title='Camisas', width=70, style='green')
+    print(painel)
 
     while True:
         n = leiastr('Sua escolha: ')
@@ -111,14 +111,16 @@ def camisa():
                 print(erro(), end='')
                 print('Cancelado')
                 print(pararerro(), end='')
+    os.system('cls')
 
 
+    conteudo = f'[yellow]Tamanhos de \"{lista[n]}\" disponíveis:\n'
+    conteudo += '[PP] - Extra Pequeno\t [P] - Pequeno\n'
+    conteudo += '[M] - Médio\t\t [G] - Grande\n'
+    conteudo += '[GG] - Extra Grande\t [EG] - Extra Extra Grande[/]'
 
-    linhat(f'Tamanhos de {lista[n]} disponíveis: ')
-    print(rosa(), end='')
-    for k, v in ta.items():
-        print(f'[{k}] {v}')
-    print(tirarrosa(), end='')
+    painel = Panel(conteudo, title='Tamanhos de Camisas', width=60, style='green')
+    print(painel)
 
     while True:
         print('-' * 15)
@@ -129,19 +131,18 @@ def camisa():
             if certo in 'Ss':
                 break
         else:
-            print(erro(), end='')
-            print(f'Tamanho {t} fora de estoque')
-            print(pararerro(), end='')
+            print(f'[red]Tamanho {t} fora de estoque[/]')
+     os.system('cls')
 
+    conteudo = f'[yellow]Cores de \"{lista[n]}\" Disponíveis:\n'
+    conteudo += 'Branco\t\tPreto\n'
+    conteudo += 'Vermelho\tVerde\n'
+    conteudo += 'Amarelo\t\tAzul\n'
+    conteudo += 'Rosa\t\tCinza\n'
+    conteudo += 'Roxo\t\tLaranja[/]'
 
-    linhat(f'Cores de {lista[n]} Disponíveis:')
-    print(rosa(), end='')
-    for c in range(0, len(cor)):
-        if c % 2 == 0:
-            print(f'{cor[c]:<20}', end='')
-        else:
-            print(f'{cor[c]:>3}')
-    print(tirarrosa(), end='')
+    painel = Panel(conteudo, title='Cores de Camisas', width=60, style='green')
+    print(painel)
 
     while True:
         print('-' * 12)
@@ -149,9 +150,8 @@ def camisa():
         if e in cor:
             break
         else:
-            print(erro(), end='')
-            print(f'Cor {e} fora de estoque')
-            print(pararerro(), end='')
+            print(f'[red]Cor {e} fora de estoque[/]')
+            
 
     linhat(f'Produto: {lista[n]}')
     print(f'Tamanho: {t}')
@@ -160,6 +160,7 @@ def camisa():
     print(linhad())
 
     cadastrar(arquivo, lista[n], t, e)
+    os.system('cls')
 
 
 #gerar estoque de blusas
@@ -169,12 +170,13 @@ def blusa():
     ta = {'PP':'Extra Pequeno', 'P':' Pequeno', 'M':'Médio', 'G':'Grande:', 'GG':'Extra Grande', 'EG':'Extra Extra Grande'}
     lista = {'1':'Blusa Canguru', '2':'Blusa Careca', '3':'Blusa com Capuz', '4':'Blusa sem Capuz', '5':'Blusa Com Ziper'}
 
-    print('As Blusas disponíveis são:')
+    conteudo = '[yellow]Os Tipos de Blusas disponíveis são:\n'
+    conteudo += '[1] - Blusa Canguru\t\t[2] - Blusa Careca\n'
+    conteudo += '[3] - Blusa com Capuz\t\t[4] - Blusa sem Capuz\n'
+    conteudo += '[5] - Blusa Com Ziperl[/]'
 
-    print(rosa(), end='')
-    for k, v in lista.items():
-        print(f'[{k}] para {v}')
-    print(tirarrosa(), end='')
+    painel = Panel(conteudo, title='Blusas', width=70, style='green')
+    print(painel)
 
     while True:
         n = leiastr('Sua escolha: ')
@@ -184,16 +186,16 @@ def blusa():
             if certo in 'Ss':
                 break
             else:
-                print(erro(), end='')
-                print('Cancelado')
-                print(pararerro(), end='')
+                print('[red]Cancelado[/]')
+    os.system('cls')
 
+    conteudo = f'[yellow]Tamanhos de \"{lista[n]}\" disponíveis:\n'
+    conteudo += '[PP] - Extra Pequeno\t [P] - Pequeno\n'
+    conteudo += '[M] - Médio\t\t [G] - Grande\n'
+    conteudo += '[GG] - Extra Grande\t [EG] - Extra Extra Grande[/]'
 
-    linhat(f'Tamanhos de {lista[n]} Disponíveis:')
-    print(rosa(), end='')
-    for k, v in ta.items():
-        print(f'[{k}] {v}')
-    print(tirarrosa(), end='')
+    painel = Panel(conteudo, title='Tamanhos de Blusa', width=60, style='green')
+    print(painel)
 
     while True:
         print('-' * 15)
@@ -204,18 +206,20 @@ def blusa():
             if certo in 'Ss':
                 break
         else:
-            print(erro(), end='')
-            print(f'Tamanho {t} fora de estoque')
-            print(pararerro(), end='')
+            print(f'[red]Tamanho {t} fora de estoque[/]')
+          
 
-    linhat(f'Cores de {lista[n]} Disponíveis:')
-    print(rosa(), end='')
-    for c in range(0, len(cor)):
-        if c % 2 == 0:
-            print(f'{cor[c]:<20}', end='')
-        else:
-            print(f'{cor[c]:>3}')
-    print(tirarrosa(), end='')
+    os.system('cls')
+
+    conteudo = f'[yellow]Cores de \"{lista[n]}\" Disponíveis:\n'
+    conteudo += 'Branco\t\tPreto\n'
+    conteudo += 'Vermelho\tVerde\n'
+    conteudo += 'Amarelo\t\tAzul\n'
+    conteudo += 'Rosa\t\tCinza\n'
+    conteudo += 'Roxo\t\tLaranja[/]'
+
+    painel = Panel(conteudo, title='Cores de Blusa', width=50, style='green')
+    print(painel)
 
     while True:
         print('-' * 12)
@@ -223,9 +227,8 @@ def blusa():
         if e in cor:
             break
         else:
-            print(erro(), end='')
-            print(f'Cor {e} fora de Estoque')
-            print(pararerro(), end='')
+            print(f'[red]Cor {e} fora de Estoque[/]')
+           
 
     linhat(f'Produto: {lista[n]}')
     print(f'Tamanho: {t}')
@@ -234,20 +237,22 @@ def blusa():
     print(linhad())
 
     cadastrar(arquivo, lista[n], t, e)
+    os.system('cls')
+
 
 #gerar estoque de Tênis
 def tenis():
-    print(linhad())
     cor = ('Branco', 'Preto', 'Vermelho', 'Verde', 'Amarelo', 'Azul', 'Rosa', 'Cinza', 'Roxo', 'Laranja')
     ta = (34, 35, 36, 37, 38, 39, 40, 41)
     lista = {'1':'Tênis Esportivo', '2':'Tênis Casual', '3':'Tênis Formal'}
 
-    print('Os Tênis disponíveis são:')
+    conteudo = '[yellow]Os Tipos de Tênis disponíveis são:\n'
+    conteudo += '[1] - Tênis Esportivo\n'
+    conteudo += '[2] - Tênis Casual\n'
+    conteudo += '[3] - Tênis Formal[/]'
 
-    print(rosa(), end='')
-    for k, v in lista.items():
-        print(f'[{k}] para {v}')
-    print(tirarrosa() ,end='')
+    painel = Panel(conteudo, title='Tênis', width=40, style='green')
+    print(painel)
 
     while True:
         n = leiastr('Sua Escolha: ').upper().strip()
@@ -257,19 +262,18 @@ def tenis():
             if certo in 'Ss':
                 break
             else:
-                print(erro(), end='')
-                print('Cancelado')
-                print(pararerro(), end='')
+                print('[red]Cancelado[/]')
+    os.system('cls')
+    
 
+    conteudo = f'[yellow]Tamanhos de \"{lista[n]}\" disponíveis:\n'
+    conteudo += '34 \t\t35\n'
+    conteudo += '36 \t\t37\n'
+    conteudo += '38 \t\t39\n'
+    conteudo += '40 \t\t41\n'
 
-    linhat(f'Os tamanhos de {lista[n]} Disponíveis:')
-    print(rosa(), end='')
-    for c in range(0, len(ta)):
-        if c % 2 == 0:
-            print(f'{ta[c]:<20}', end='')
-        else:
-            print(f'{ta[c]:>3}')
-    print(tirarrosa(), end='')
+    painel = Panel(conteudo, title='Tamanhos de Tênis', width=40, style='green')
+    print(painel)
 
     while True:
         print('-' *15)
@@ -279,18 +283,18 @@ def tenis():
             if certo in 'Ss':
                 break
         else:
-            print(erro(), end='')
-            print(f'Tamanho {t} fora de estoque')
-            print(pararerro(), end='')
+            print(f'[red]Tamanho {t} fora de estoque[/]')
+    os.system('cls')
 
-    linhat('Cores de {lista[n]} Disponíveis:')
-    print(rosa(), end='')
-    for c in range(0, len(cor)):
-        if c % 2 == 0:
-            print(f'{cor[c]:<20}', end='')
-        else:
-            print(f'{cor[c]:>3}')
-    print(tirarrosa(), end='')
+    conteudo = f'[yellow]Cores de \"{lista[n]}\" Disponíveis:\n'
+    conteudo += 'Branco\t\tPreto\n'
+    conteudo += 'Vermelho\tVerde\n'
+    conteudo += 'Amarelo\t\tAzul\n'
+    conteudo += 'Rosa\t\tCinza\n'
+    conteudo += 'Roxo\t\tLaranja[/]'
+
+    painel = Panel(conteudo, title='Cores de Tênis', width=50, style='green')
+    print(painel)
 
     while True:
         print('-' * 12)
@@ -298,9 +302,8 @@ def tenis():
         if e in cor:
             break
         else:
-            print(erro(), end='')
-            print(f'Cor {e} fora de Estoque')
-            print(pararerro(), end='')
+            print(f'[red]Cor {e} fora de Estoque[/]')
+            
 
     linhat(f'Produto: {lista[n]}')
     print(f'Tamanho: {t}')
@@ -309,6 +312,7 @@ def tenis():
     print(linhad())
 
     cadastrar(arquivo, lista[n], t, e)
+    os.system('cls')
 
 
 #gerar estoque de acessórios
@@ -317,12 +321,14 @@ def acessorio():
     cor = ('Branco', 'Preto', 'Vermelho', 'Verde', 'Amarelo', 'Azul', 'Rosa', 'Cinza', 'Roxo', 'Laranja')
     lista = {'1':'Óculos', '2':'Brinco', '3':'Corrente', '4':'Bracelete', '5':'Pingente', '6':'Toca', '7':'Chapéu'}
 
-    print('Os Acessórios disponíveis são:')
+    conteudo = '[yellow]Os Acessórios Disponíveis são:\n'
+    conteudo += '[1] - Óculos\t[2] - Brinco\n'
+    conteudo += '[3] - Corrente\t[4] - Bracelete\n'
+    conteudo += '[5] - Pingente\t[6] - Brinco\n'
+    conteudo += '[7] - Chápeu\n'
 
-    print(rosa(), end='')
-    for k, v in lista.items():
-        print(f'[{k}] para {v}')
-    print(tirarrosa(), end='')
+    painel = Panel(conteudo, title='Acessórios', width=40, style='green')
+    print(painel)
 
     while True:
         n = leiastr('Sua Escolha: ').upper().strip()
@@ -332,19 +338,18 @@ def acessorio():
             if certo in 'Ss':
                 break
             else:
-                print(erro(), end='')
-                print('Cancelado')
-                print(pararerro(), end='')
+                print('[red]Cancelado[/]')
+    os.system('cls')
 
+    conteudo = f'[yellow]Cores de \"{lista[n]}\" Disponíveis:\n'
+    conteudo += 'Branco\t\tPreto\n'
+    conteudo += 'Vermelho\tVerde\n'
+    conteudo += 'Amarelo\t\tAzul\n'
+    conteudo += 'Rosa\t\tCinza\n'
+    conteudo += 'Roxo\t\tLaranja[/]'
 
-    linhat(f'As cores de {lista[n]} Disponívei:')
-    print(rosa(), end='')
-    for c in range(0, len(cor)):
-        if c % 2 == 0:
-            print(f'{cor[c]:<20}', end='')
-        else:
-            print(f'{cor[c]:>3}')
-    print(tirarrosa(), end='')
+    painel = Panel(conteudo, title=f'{lista[n]}', width=50, style='green')
+    print(painel)
 
     while True:
         print('-' * 12)
@@ -352,9 +357,8 @@ def acessorio():
         if e in cor:
             break
         else:
-            print(erro(), end='')
-            print(f'Cor \"{e}\" fora de estoque')
-            print(pararerro(), end='')
+            print(f'[red]Cor \"{e}\" fora de estoque[/]')
+          
 
     linhat(f'Produto: {lista[n]}')
     print(f'Cor: {e}')
@@ -362,18 +366,18 @@ def acessorio():
     print(linhad())
 
     cadastrar(arquivo, produto=lista[n], cor=e)
+    os.system('cls')
 
 
 #sair do sistema
 def sair():
-    print(rosa(), end='')
-    print('-' *17)
+    print('[yellow]-' *17)
     print('Saindo do Sistema', end='')
     for c in range(3):
         print('.', end='')
         sleep(0.5)
     print()
     print('Até Logo')
-    print(tirarrosa(), end='')
+    
 
 
