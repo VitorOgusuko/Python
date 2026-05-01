@@ -7,9 +7,9 @@ def arquivocriar(nome):
         a = open(nome, 'wt+')
         a.close()
     except:
-        print('Nao foi possivel criar o arquivo')
+        return False
     else:
-        print(f'Arquivo \"{nome}\" criado')
+        return True
 
 
 #ler o arquivo criado
